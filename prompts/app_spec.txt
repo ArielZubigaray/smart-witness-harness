@@ -1,0 +1,118 @@
+<project_specification>
+  <project_name>Smart Witness</project_name>
+
+  <overview>
+    Smart Witness is an IoT alarm verification system that captures and transmits photos when a home alarm is triggered. 
+    This project creates a fully testable development environment with mock simulators for the ESP32-CAM hardware and 
+    Telegram messaging service. The system includes a FastAPI backend, three React webapps (device simulator, 
+    Telegram simulator, and dashboard), enabling 100% autonomous testing via Puppeteer without real hardware.
+  </overview>
+
+  <technology_stack>
+    <backend>
+      <runtime>FastAPI (Python 3.11+)</runtime>
+      <database>SQLite (for development, PostgreSQL in production)</database>
+      <port>8000</port>
+    </backend>
+    <mock_device_webapp>
+      <framework>React with Vite</framework>
+      <styling>Tailwind CSS</styling>
+      <port>3001</port>
+      <purpose>Simulates ESP32-CAM device behavior</purpose>
+    </mock_device_webapp>
+    <mock_telegram_webapp>
+      <framework>React with Vite</framework>
+      <styling>Tailwind CSS</styling>
+      <port>3002</port>
+      <purpose>Simulates Telegram Bot interface</purpose>
+    </mock_telegram_webapp>
+    <dashboard>
+      <framework>React with Vite</framework>
+      <styling>Tailwind CSS</styling>
+      <port>3000</port>
+      <purpose>User interface for viewing events and managing devices</purpose>
+    </dashboard>
+  </technology_stack>
+
+  <core_features>
+    <!-- Backend: 10 features -->
+    <feature id="1">POST /api/v1/alarm - Receive alarm with photo</feature>
+    <feature id="2">GET /api/v1/sync - Device config sync</feature>
+    <feature id="3">GET /api/v1/commands - Pending commands</feature>
+    <feature id="4">POST /api/v1/commands/ack - Command acknowledgment</feature>
+    <feature id="5">Device authentication via X-API-Key header</feature>
+    <feature id="6">GET /api/v1/sites - List user sites</feature>
+    <feature id="7">GET /api/v1/events - List events</feature>
+    <feature id="8">GET /api/v1/events/{id} - Event detail with photos</feature>
+    <feature id="9">GET /api/v1/devices - List devices</feature>
+    <feature id="10">POST /api/v1/ssids - WiFiGRID SSID scan</feature>
+
+    <!-- Mock Device: 10 features -->
+    <feature id="11">Device state display (OFF, BOOTING, CAPTURING, SENDING, IDLE)</feature>
+    <feature id="12">Activate Alarm button</feature>
+    <feature id="13">Stop Alarm button</feature>
+    <feature id="14">Event log display</feature>
+    <feature id="15">Camera preview</feature>
+    <feature id="16">Duration input</feature>
+    <feature id="17">WiFi failure simulation checkbox</feature>
+    <feature id="18">Device configuration panel</feature>
+    <feature id="19">Uptime counter</feature>
+    <feature id="20">Photo capture counter</feature>
+
+    <!-- Mock Telegram: 8 features -->
+    <feature id="21">Group list sidebar</feature>
+    <feature id="22">Chat view</feature>
+    <feature id="23">Photo message display</feature>
+    <feature id="24">Alert message formatting</feature>
+    <feature id="25">Command buttons (Nueva foto, OK, Falsa)</feature>
+    <feature id="26">Command input (/foto, /estado)</feature>
+    <feature id="27">Event finished message</feature>
+    <feature id="28">Family vs Neighborhood permissions</feature>
+
+    <!-- Dashboard: 7 features -->
+    <feature id="29">Events list page</feature>
+    <feature id="30">Event detail page with timeline</feature>
+    <feature id="31">Devices page</feature>
+    <feature id="32">Photo gallery lightbox</feature>
+    <feature id="33">Navigation header</feature>
+    <feature id="34">Settings page</feature>
+    <feature id="35">Real-time updates</feature>
+
+    <!-- Integration: 3 features -->
+    <feature id="36">Complete alarm flow (end-to-end)</feature>
+    <feature id="37">Command flow</feature>
+    <feature id="38">WiFi failover flow</feature>
+
+    <!-- Style: 4 features -->
+    <feature id="39">Mock Device dark theme (#1a1a2e, #16213e)</feature>
+    <feature id="40">Mock Telegram styling (#4faaec header)</feature>
+    <feature id="41">Dashboard professional design (#2563eb, #f3f4f6)</feature>
+    <feature id="42">Responsive layout</feature>
+  </core_features>
+
+  <design_guidelines>
+    <mock_device>Background: #1a1a2e, Panels: #16213e, Accent: #e94560, Text: #ffffff</mock_device>
+    <mock_telegram>Header: #4faaec, Background: #ffffff, Bubbles: #dcf8c6</mock_telegram>
+    <dashboard>Primary: #2563eb, Background: #f3f4f6, Cards: #ffffff</dashboard>
+  </design_guidelines>
+
+  <testing_approach>
+    All testing via Puppeteer browser automation:
+    1. Navigate to each webapp URL
+    2. Interact via clicks and keyboard
+    3. Take screenshots at each step
+    4. Verify both functionality and visual design
+    5. Check browser console for errors
+  </testing_approach>
+
+  <success_criteria>
+    - All 4 apps start and run without errors
+    - Backend API responds correctly to all device endpoints
+    - Mock Device simulates complete alarm state machine
+    - Mock Telegram displays messages and handles commands
+    - Dashboard shows events and photos
+    - End-to-end flow works: Device → Backend → Telegram + Dashboard
+    - No console errors in any browser
+    - Professional, polished UI matching design guidelines
+  </success_criteria>
+</project_specification>
